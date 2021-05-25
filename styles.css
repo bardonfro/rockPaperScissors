@@ -1,0 +1,131 @@
+ /*div {
+    border: 1px white solid;
+    min-width: 0px;
+    min-height: 10px;
+    margin: 1px;
+} */
+
+body {
+    background-color: #284173;
+    color: white;
+    font-family: 'Lato', sans-serif;
+}
+
+.clickable:hover {
+    cursor: pointer;
+}
+
+#game-space {
+    text-align: center;
+    margin: 0px;
+}
+    #game-space h2 {
+        margin-bottom: .5em;
+    }
+
+#header {
+    text-align: center;
+}
+    #header h1 {
+        font-family: 'Roboto Condensed', sans-serif;
+        font-size: 3em;
+        margin-bottom: 0px;
+    }
+
+    #header p {
+        font-size: 1.2em;
+
+    }
+
+#message-board {
+    text-align: center;
+    margin-top: 2em;
+}
+    #message-board p {
+        margin-bottom: .5em;
+    }
+
+#reset-button {
+    font-family:'Roboto Condensed', sans-serif;
+    padding: .5em;
+    font-size: 1.5em;
+    border-radius: 10px;
+    margin-bottom: .5em;
+}
+
+#scoreboard {
+    text-align:center;
+}
+
+#scoreboard .divider {
+    display: none;
+    width: 0px;
+    height: 5em;
+    border-right: 2px white solid;
+    box-shadow: 2px 5px 2px black;
+}
+
+.scorecard {
+    display:inline-block;
+    padding: 0em 1em;
+}
+
+.scorecard h3 {
+    color: white;
+    margin-top: .2em;
+}
+
+.scorecard p {
+
+}
+
+#scorecard-container {
+    display: inline-block;
+}
+
+.shrunk-weapon {
+    transform: scale(0.001)
+}
+
+.weapon-choice {
+    transform: scale(1.2);
+}
+
+.weapon-container {
+    display:inline-block;
+    margin: 2em;
+    margin-top: .5em;
+    border-radius: 25px;
+    transition: 0.25s;
+}
+
+.weapon-frame {
+    width: 120px;
+    height: 120px;
+    margin: 5px;
+    background-size:contain;
+    background-position: center;
+    border-radius: 20px;
+    box-shadow: 4px 4px 5px 3px #1d2e50;
+}
+
+    .blank .weapon-frame {
+        background-color: gray;
+    }
+
+    .paper .weapon-frame {
+        background-image: url(images/paper.jpg);
+    }
+
+    .rock .weapon-frame {
+        background-image: url(images/rock.jpg);
+    }
+
+    .scissors .weapon-frame {
+        background-image: url(images/scissors.jpg);
+    }
+
+.hidden {
+    display: none;
+}
+

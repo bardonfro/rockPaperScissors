@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Rock, Paper, Scissors</title>
+        <!--Snick, Snack,Snook-->
+        <link rel="stylesheet" href="styles.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@100&family=Roboto+Condensed:wght@700&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div id="header">
+            <h1>Rock, Paper, Scissors</h1>
+            <p>A game of chance and wit</p>
+        </div>
+
+
+        <div id="game-space">
+            <div id="message-board">
+                <!--Message is a placeholder. It gets changed by the script on load.-->
+                <h2>Welcome to the game. Choose your weapon to get started.</h2>
+                <button id="reset-button" class="hidden">Next Round</button>
+            </div>
+            <div id="player-space">
+                <div class="weapon-container rock clickable" data-weapon="rock">
+                    <div class="weapon-frame"></div>
+                    <div class="weapon-label">Rock</div>
+                </div>
+                <div class="weapon-container paper clickable" data-weapon="paper">
+                    <div class="weapon-frame"></div>
+                    <div class="weapon-label">Paper</div>
+                </div>
+                <div class="weapon-container scissors clickable" data-weapon="scissors">
+                    <div class="weapon-frame"></div>
+                    <div class="weapon-label">Scissors</div>
+                </div>
+            </div>
+            <div id="computer-space">
+                <h2>Computer's Weapon:</h2>
+                <div class="weapon-container blank outer">
+                    <div class="weapon-frame"></div>
+                    <div class="weapon-label">&nbsp;</div>
+                </div>
+                <div class="weapon-container blank center">
+                    <div class="weapon-frame"></div>
+                    <div class="weapon-label">&nbsp;</div>
+                </div>
+                <div class="weapon-container blank outer">
+                    <div class="weapon-frame"></div>
+                    <div class="weapon-label">&nbsp;</div>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="scoreboard">
+            <h2>Score:</h2>
+            <div id="scorecard-container">
+                <div class="player scorecard">
+                    <h3>Human:</h3>
+                    <p class="score-display">0</p>
+                </div>
+                <div class="divider"></div>
+                <div class="computer scorecard">
+                    <h3>Computer:</h3>
+                    <p class="score-display">0</p>
+                </div>
+            </div>
+        </div>
+    
+        <script src="script.js"></script>
+    </body>
+</html>
