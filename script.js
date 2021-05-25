@@ -2,11 +2,7 @@
 
 /*-----------
 *  To-Do:
-    -Styling
-
-    -Computer weapon is temporarily set to always paper (line 103)
     -Computer seems to chose paper more than the other weapons.
-
 -----------*/
 
 /*-----------
@@ -46,7 +42,7 @@ let playerWeapon = "";
 let computerWeapon = "";
 let playerScore = 0;
 let computerScore = 0;
-let winningScore = 2;
+let winningScore = 5;
 
 
 /*-----------
@@ -95,7 +91,7 @@ function playGame (playerWeaponCard) {
 }
 
 function computerChooseWeapon() {
-    computerWeapon = weapons[1] //weapons[Math.floor( Math.random() * weapons.length )];
+    computerWeapon = weapons[Math.floor( Math.random() * weapons.length )];
     animateComputerChoice();
     computerWeaponCenter.classList.add('weapon-choice');
     computerWeaponCenter.classList.add(computerWeapon);
