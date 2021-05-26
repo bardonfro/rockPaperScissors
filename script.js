@@ -1,11 +1,6 @@
 'use strict';
 
 /*-----------
-*  To-Do:
-    -Computer seems to chose paper more than the other weapons.
------------*/
-
-/*-----------
 *  Defining elements and event listeners
 -----------*/
 
@@ -37,7 +32,7 @@ const computerScoreDisplay = document.querySelector('.computer.scorecard .score-
 /*----------
 *  Define constants and variables
 ----------*/
-const weapons = ["rock", "paper", "scissors"];
+const arrWeapons = ["rock", "paper", "scissors"];
 let playerWeapon = "";
 let computerWeapon = "";
 let playerScore = 0;
@@ -46,27 +41,7 @@ let winningScore = 5;
 
 
 /*-----------
-*  Step 1: Player selects weapon
------------*/
-function selectPlayerWeapon(weapon) {
-    if (!weapon.classList.contains('clickable')) {return;}
-    
-    weapon.classList.add('weapon-choice');
-    weapon.classList.remove('clickable');
-    document.querySelectorAll('.clickable').forEach(shrinkHide);
-    
-    playerWeapon = weapon.dataset.weapon;
-}
-
-function shrinkHide(obj) {
-    obj.addEventListener('transitionend', function() { //The event listener needs to be removed, or it affects later rounds ------------------
-        hide(obj);
-        obj.classList.remove('shrunk-weapon');},{once:true});
-    obj.classList.add('shrunk-weapon');
-}
-
-/*-----------
-*  Step 2: Play button clicked
+*  Round Function (triggered by player click on weapon)
 -----------*/
 
 function playGame (playerWeaponCard) {
@@ -74,35 +49,87 @@ function playGame (playerWeaponCard) {
     computerChooseWeapon();
     let result = returnRoundOutcome(playerWeapon, computerWeapon);
     updateScore(result);
-    console.log(result);
-    setUserMessage(result)
+    setUserMessage(result);
     if (playerScore === winningScore) {
         endGame("player");
         return;
     }
     
     if (computerScore === winningScore) {
-        endGame("computer")
+        endGame("computer");
         return;
     } 
   
-    unhide(resetButton);
+    makeUnhidden(resetButton);
 
+}
+
+/*----------
+*  Other Functions
+----------*/
+function capitalize(str) {
+    if (!str) {return null;}
+    str = str.toLowerCase();
+    let head = str[0].toUpperCase();
+    let tail = str.substring(1);
+    let final = [head, tail];
+    return final.join("");
 }
 
 function computerChooseWeapon() {
-    computerWeapon = weapons[Math.floor( Math.random() * weapons.length )];
-    animateComputerChoice();
+    computerWeapon = arrWeapons[Math.floor( Math.random() * arrWeapons.length )];
     computerWeaponCenter.classList.add('weapon-choice');
     computerWeaponCenter.classList.add(computerWeapon);
     computerWeaponCenter.classList.remove('blank');
-    computerWeaponsOuter.forEach(shrinkHide);
-    document.querySelector('#computer-space .weapon-choice .weapon-label').textContent = computerWeapon; //Needs to be capitalized to match player weapons
+    computerWeaponsOuter.forEach(makeHiddenAnimate);
+    document.querySelector('#computer-space .weapon-choice .weapon-label').textContent = capitalize(computerWeapon);
     return computerWeapon;
 }
 
-function animateComputerChoice() {
-    //for future development
+function endGame(winner) {
+    if (winner === "player") {
+        setUserMessage("winGame");
+    }
+
+    if (winner === "computer") {
+        setUserMessage("loseGame");
+    }
+
+    makeHidden(playerSpace);
+    makeHidden(computerSpace);
+}
+
+function makeHidden(obj) {
+    obj.classList.add('hidden');
+}
+
+function makeHiddenAnimate(obj) {
+    obj.addEventListener('transitionend', function() { //The event listener needs to be removed, or it affects later rounds ------------------
+        makeHidden(obj);
+        obj.classList.remove('shrunk-weapon');},{once:true});
+    obj.classList.add('shrunk-weapon');
+}
+
+function makeUnhidden(obj) {
+    obj.classList.remove('hidden');
+}
+
+function resetPlayerWeapon(weapon) {
+    makeUnhidden(weapon);
+    weapon.classList.add('clickable');
+    weapon.classList.remove('weapon-choice');
+}
+
+function resetRound() {
+    const playerWeapons = document.querySelectorAll('#player-space .weapon-container');
+    playerWeapons.forEach(resetPlayerWeapon);
+    computerWeaponsOuter.forEach(makeUnhidden);
+    document.querySelector('#computer-space .weapon-choice .weapon-label').textContent = String.fromCharCode(160);
+    computerWeaponCenter.classList = "weapon-container blank center";
+    playerWeapon = "";
+    computerWeapon = "";
+    setUserMessage("newRound")
+    makeHidden(resetButton);
 }
 
 function returnRoundOutcome(playerWeapon, computerWeapon) {
@@ -119,6 +146,16 @@ function returnRoundOutcome(playerWeapon, computerWeapon) {
 
 }
 
+function selectPlayerWeapon(weapon) {
+    if (!weapon.classList.contains('clickable')) {return;}
+    
+    weapon.classList.add('weapon-choice');
+    weapon.classList.remove('clickable');
+    document.querySelectorAll('.clickable').forEach(makeHiddenAnimate);
+    
+    playerWeapon = weapon.dataset.weapon;
+}
+
 function updateScore (result) {
     if (result === "win") {
         playerScore = ++playerScore;
@@ -128,51 +165,6 @@ function updateScore (result) {
     }
     playerScoreDisplay.textContent = playerScore;
     computerScoreDisplay.textContent = computerScore;
-}
-
-// setUserMessage at end of document
-
-/*-----------
-*  Reset the game space
------------*/
-
-function resetRound() {
-    const playerWeapons = document.querySelectorAll('#player-space .weapon-container');
-    playerWeapons.forEach(resetPlayerWeapon);
-    computerWeaponsOuter.forEach(unhide);
-    document.querySelector('#computer-space .weapon-choice .weapon-label').textContent = String.fromCharCode(160);
-    computerWeaponCenter.classList = "weapon-container blank center";
-    playerWeapon = "";
-    computerWeapon = "";
-    setUserMessage("newRound")
-    hide(resetButton);
-}
-
-function resetPlayerWeapon(weapon) {
-    unhide(weapon);
-    weapon.classList.add('clickable');
-    weapon.classList.remove('weapon-choice');
-}
-
-function hide(obj) {
-    obj.classList.add('hidden');
-}
-
-function unhide(obj) {
-    obj.classList.remove('hidden');
-}
-
-function endGame(winner) {
-    if (winner === "player") {
-        setUserMessage("winGame");
-    }
-
-    if (winner === "computer") {
-        setUserMessage("loseGame");
-    }
-
-    hide(playerSpace);
-    hide(computerSpace);
 }
 
 function setUserMessage (phase) {
